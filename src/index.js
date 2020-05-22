@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FlipCard from './components/flipcard/FlipCard';
-import './index.css';
+import './index.scss';
 
 const TOTAL_MATCHES = 10;
 

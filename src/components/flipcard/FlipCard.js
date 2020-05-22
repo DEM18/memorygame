@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactCardFlip from 'react-card-flip';
-import './FlipCard.css';
+import './FlipCard.scss';
 
 
 class FlipCard extends React.Component {
