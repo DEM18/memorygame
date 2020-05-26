@@ -165,12 +165,65 @@ class App extends React.Component {
 
     render(){
         return (
-            <div className="memorygame-container">
-                <header className="memorygame-header">
-                    <span className="game-title">React-Memoria</span>
-                    <span className="game-try">Intentos:<span className="try-value">{this.state.tries}</span></span>
+            <div className="memory-game">
+                <header className="header">
+                    <div className="header__logo">
+                        LOGO
+                    </div>
+                    <nav className="header__menu">
+                        <ul className="menu-list">
+                            <li className="menu-list__option">
+                                <button className="menu-list__button">Reset Positions</button></li>
+                            <li className="menu-list__option">
+                                <button className="menu-list__button">New Game</button></li>
+                            <li className="menu-list__option">
+                                <button className="menu-list__button">Change Player</button></li>
+                        </ul>
+                    </nav>
                 </header>
-                <div className="board-container">
+                <div className="board">
+                    <div className="board__column--left">
+                        <FlipCard 
+                            toggleCard={this.toggleCard}
+                            arrayValues={this.state.arrayValues}
+                        /> 
+                    </div>
+                    <div className="board__column--right">
+                        <div className="table table-change-player">
+                            <span className="table__title table__title--change-player">Please enter your name:</span>
+                            <div className="table__description table__description--change-player">
+                                <input className="table__input"/>
+                                <button className="table__button">OK</button>
+                            </div>
+                        </div>
+                        <div className="table table-current-player">
+                            <div className="table__title">
+                                Current Player
+                            </div>
+                            <div className="table__description">
+                                <span className="description">Name:<span className="description__item--player"> Player #1</span></span>
+                                <span className="description"># Attempts:<span className="description__item--attempts">12</span></span>
+                            </div>
+                        </div>
+                        <div className="table table-positions">
+                            <div className="table__title table__title--positions">
+                                Position Table
+                            </div>
+                            <div className="table__description">
+                                <span className="description description-positions">Player #1<span className="description__item--first-player">15</span></span>
+                                <span className="description description-positions">Player #2<span className="description__item--second-player">25</span></span>
+                                <span className="description description-positions">Player #3<span className="description__item--third-player">26</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer className="footer">
+                    Training 2020
+                </footer>
+
+                    {/* <span className="game-try">Intentos:<span className="try-value">{this.state.tries}</span></span> */}
+               
+                {/* <div className="mmemorygame__board">
                     <button type="button" className="btn-restart" onClick={this.restartGame}>Reiniciar</button>
                     <div className="flipcard-board">
                         <FlipCard 
@@ -178,7 +231,7 @@ class App extends React.Component {
                             arrayValues={this.state.arrayValues}
                         />
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }

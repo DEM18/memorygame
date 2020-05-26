@@ -8,16 +8,16 @@ class FlipCard extends React.Component {
         const { arrayValues,toggleCard } = this.props;
         return(
             arrayValues.map(( e, index ) => (
-                <ReactCardFlip className="cardFlip-container" 
+                <ReactCardFlip className="cards"
                     isFlipped={ e.status } 
                     key={ index } 
                     flipSpeedFrontToBack={ 0.3 }
                     flipSpeedBackToFront={0.3}>
-                    <div className="card-wrapper front" id={ index }
+                    <div className="cards__card--front" id={ index }
                         onClick={ toggleCard }>
                     </div>
         
-                    <div className="card-wrapper back" id={ index }>
+                    <div className="cards__card--back" id={ index }>
                     <div className="card-value">
                         <i className={`fas ${ e.value } fa-5x`}></i>
                        
