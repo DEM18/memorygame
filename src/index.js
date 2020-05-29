@@ -23,8 +23,8 @@ class App extends React.Component {
             cardB: null,
             matches: 0,
             tries: 0,
-            showChangePlayer: true,
-            showCurrenPlayer: false,
+            showChangePlayer: false,
+            showCurrenPlayer: true,
             playersPositions: [],
             newPlayer: null
         }
@@ -59,12 +59,8 @@ class App extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        let positions = await this.getPlayersPositions();
-
-        this.setState({
-            playersPositions:positions
-        })
+    componentDidMount() {
+        this.getPlayersPositions();
     }
 
     render(){
@@ -101,11 +97,11 @@ class App extends React.Component {
     }
 
     //function that fetch to API to get players positions
-    async getPlayersPositions() {
-        const positions = await playersPositions.get( '/positions' )
-            .then( response => response.data.positions );
-
-        return positions;
+    getPlayersPositions() {
+        playersPositions.get( '/positions' )
+            .then( response => this.setState({
+                playersPositions: response.data.positions
+            }) );
     }
     
 

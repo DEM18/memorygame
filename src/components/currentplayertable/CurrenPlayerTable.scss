@@ -1,0 +1,37 @@
+$backgroundColor: #000000;
+$font-color: #ffffff;
+$table-border-color: #ffffff;
+$font-family: sans-serif;
+$font-style-italic: italic;
+
+.table-current-player {
+    height: 200px;
+    margin-bottom: 120px;
+}
+
+.table__row-current-player {
+    padding-top: 0px;
+}
+
+
+.row { 
+    margin: 20px;
+
+    &__item {
+        margin-left: 50px;
+    }
+
+    &__item--player {
+        margin: 0 0 10px 5px;
+        font-style: $font-style-italic;
+    }
+
+    &__item--attempts {
+        font-style: $font-style-italic;
+        margin: 0 0 25px 10px;
+    }
+    
+    &__item--third-player { 
+        margin-bottom: 75px;
+    }
+}

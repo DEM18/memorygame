@@ -1,3 +1,7 @@
+@import './components/header/Header.scss';
+@import './components/currentplayertable/CurrenPlayerTable.scss';
+@import './components/positiontable/PositionTable.scss';
+
 $backgroundColor: #000000;
 $font-color: #ffffff;
 $table-border-color: #ffffff;
@@ -16,47 +20,6 @@ $font-style-italic: italic;
     padding: 4px;
 }
 
-.header {
-    align-items: center;
-    background-color: $backgroundColor;
-    border-bottom: 2px solid $table-border-color;
-    display: flex;
-    height: 100px;
-    justify-content: space-between;
-    padding:  70px 20px 70px 40px ;
-    
-    &__logo {
-        align-items: center;
-        background-color: $font-color;
-        color: black;
-        display: flex;
-        font-family: $font-family;
-        font-size: 45px;
-        font-weight: bold;
-        height: 80px;
-        justify-content: center;
-        width: 230px;
-    }
-}
-
-.menu-list {
-    display: flex;
-    list-style: none;
-    
-    &__option {
-        display: block;
-        margin-right: 45px;
-    }
-    
-    &__button {
-        background-color: black;
-        color: $font-color;
-        font-family: $font-family;
-        font-size: 30px;
-    }
-}
-
-
 .board {
     display: flex;
     background-color: $backgroundColor;
@@ -64,16 +27,14 @@ $font-style-italic: italic;
     &__column--left {
         display: flex;
         flex-wrap: wrap;
-        padding: 70px 0 50px 150px;
-        width: 70%;
+        padding: 70px 50px 0 50px;
     }
 
     &__column--right {
         width: 60%;
-        padding: 70px 0 0 300px;
+        padding: 70px 50px 0 50px;
     }
 }
-
 
 .table {
     border: 2px solid $table-border-color;
@@ -86,19 +47,17 @@ $font-style-italic: italic;
         display: flex;
         font-family: $font-family;
         font-size: 25px;
-        height: 50px;
         justify-content: center;
         padding-top: 25px;
         text-align: center;
     }
 
-    &__description {
+    &__row {
         display: flex;
         flex-direction: column;
         font-family: $font-family;
         font-size: 25px;
-        margin-bottom: 10px;
-        padding: 25px 30px 0 30px;
+        padding: 0px 30px 0 30px;
     }
 
     &__input {
@@ -114,56 +73,6 @@ $font-style-italic: italic;
         width: 62px;
     }
 
-}
-
-.table-current-player {
-    margin-bottom: 72px;
-}
-
-.description { 
-    margin: 20px;
-
-    &__item {
-        margin-left: 50px;
-    }
-
-    &__item--player {
-        margin: 0 0 10px 5px;
-        font-style: $font-style-italic;
-    }
-
-    &__item--attempts {
-        font-style: $font-style-italic;
-        margin: 0 0 25px 10px;
-    }
-    
-    &__item--third-player { 
-        margin-bottom: 75px;
-    }
-}
-
-.table__title--positions {
-    margin-bottom: 30px;
-}
-
-.description-positions {
-    display: flex;
-    justify-content: space-between;
-}
-
-.table-change-player {
-    padding: 30px;
-    margin-bottom: 72px;
-}
-
-.table__title--change-player {
-    justify-content: start;
-}
-
-.table__description--change-player {
-    display: flex;
-    flex-direction: row;
-    padding-left: 0;
 }
 
 .footer {
