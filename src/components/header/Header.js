@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Header = ( props ) => {
-    const { handdleChangePlayer } = props;
+    const { handdleChangePlayer, restart } = props;
     return (
         <header className="header">
             <div className="header__logo">
@@ -13,7 +13,9 @@ const Header = ( props ) => {
                     <li className="menu-list__option">
                         <button className="menu-list__button">Reset Positions</button></li>
                     <li className="menu-list__option">
-                        <button className="menu-list__button">New Game</button></li>
+                        <button className="menu-list__button"
+                        onClick={ restart }
+                        >New Game</button></li>
                     <li className="menu-list__option">
                         <button className="menu-list__button"
                             onClick={handdleChangePlayer}

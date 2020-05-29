@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import playersPositions from './api/playerspositions';
+import './index.scss';
+
 import FlipCard from './components/flipcard/FlipCard';
 import Header from './components/header/Header';
 import ChangePlayerTable from './components/changeplayertable/ChangePlayerTable';
 import CurrentPlayerTable from './components/currentplayertable/CurrenPlayerTable';
 import PositionTable from './components/positiontable/PositionTable';
 import Footer from './components/footer/Footer';
-import './index.scss';
+
 
 const TOTAL_MATCHES = 10;
-
 
 class App extends React.Component {
     constructor(props) {
@@ -21,8 +23,10 @@ class App extends React.Component {
             cardB: null,
             matches: 0,
             tries: 0,
-            showChangePlayer: false,
-            showCurrenPlayer: true,
+            showChangePlayer: true,
+            showCurrenPlayer: false,
+            playersPositions: [],
+            newPlayer: null
         }
         this.handdleFlipCardValue = this.handdleFlipCardValue.bind(this);
         this.isEqualTo = this.isEqualTo.bind(this);
@@ -32,6 +36,8 @@ class App extends React.Component {
         this.restartGame = this.restartGame.bind(this);
         this.createShuffleValues = this.createShuffleValues.bind(this);
         this.handdleChangePlayer = this.handdleChangePlayer.bind(this);
+        this.getPlayersPositions = this.getPlayersPositions.bind(this);
+        this.handleNewPlayer = this.handleNewPlayer.bind(this);
     }
 
     componentDidUpdate() {
@@ -53,11 +59,21 @@ class App extends React.Component {
         }
     }
 
+    async componentDidMount() {
+        let positions = await this.getPlayersPositions();
+
+        this.setState({
+            playersPositions:positions
+        })
+    }
+
     render(){
-        console.log("this.state.show", this.state.showChangePlayer);
         return (
             <div className="memory-game">
-                <Header handdleChangePlayer={ this.handdleChangePlayer }/>
+                <Header 
+                handdleChangePlayer={ this.handdleChangePlayer }
+                restart={this.restartGame}
+                />
                 <div className="board">
                     <div className="board__column--left">
                         {this.state.arrayValues.map(( e, index ) => (
@@ -72,15 +88,26 @@ class App extends React.Component {
                         ))}
                     </div>
                     <div className="board__column--right">
-                    { this.state.showChangePlayer ? <ChangePlayerTable/> : null }
-                    { this.state.showCurrenPlayer ? <CurrentPlayerTable/> : null }
-                        <PositionTable/>
+                    { this.state.showChangePlayer ? <ChangePlayerTable handleNewPlayer={this.handleNewPlayer}/> : null }
+                    { this.state.showCurrenPlayer ? <CurrentPlayerTable attempts={this.state.tries} currentPlayer={this.state.newPlayer}/> : null }
+                        <PositionTable 
+                        positions={this.state.playersPositions}
+                        />
                     </div>
                 </div>
             <Footer/>
             </div>
         )
     }
+
+    //function that fetch to API to get players positions
+    async getPlayersPositions() {
+        const positions = await playersPositions.get( '/positions' )
+            .then( response => response.data.positions );
+
+        return positions;
+    }
+    
 
     //function that shuffle values of an array of strings
     createShuffleValues() {
@@ -201,6 +228,14 @@ class App extends React.Component {
 
     handdleChangePlayer() {
         this.setState( prevState => ({
+            showChangePlayer: !prevState.showChangePlayer,
+            showCurrenPlayer: !prevState.showCurrenPlayer
+        }))
+    }
+
+    handleNewPlayer( value ) {
+        this.setState( prevState => ({
+            newPlayer: value,
             showChangePlayer: !prevState.showChangePlayer,
             showCurrenPlayer: !prevState.showCurrenPlayer
         }))

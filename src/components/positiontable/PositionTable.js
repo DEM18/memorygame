@@ -1,15 +1,17 @@
 import React from 'react';
 
-const PositionTable = () => {
+const PositionTable = ( props ) => {
+    const { positions } = props;
     return(
         <div className="table table-positions">
         <div className="table__title table__title--positions">
             Position Table
         </div>
-        <div className="table__description">
-            <span className="description description-positions">Player #1<span className="description__item--first-player">15</span></span>
-            <span className="description description-positions">Player #2<span className="description__item--second-player">25</span></span>
-            <span className="description description-positions">Player #3<span className="description__item--third-player">26</span></span>
+        <div className="table__row">
+            { positions.map( (position, index) => (
+                <span className="row row-positions"
+                key={index}>Player #{position.player_id}<span className="description__item--first-player">{position.position} </span></span>
+            ))}
         </div>
     </div>
     )
