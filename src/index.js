@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FlipCard from './FlipCard';
-import './index.css';
+import playersPositions from './api/playerspositions';
+import './index.scss';
+
+import FlipCard from './components/flipcard/FlipCard';
+import Header from './components/header/Header';
+import ChangePlayerTable from './components/changeplayertable/ChangePlayerTable';
+import CurrentPlayerTable from './components/currentplayertable/CurrenPlayerTable';
+import PositionTable from './components/positiontable/PositionTable';
+import Footer from './components/footer/Footer';
+
 
 const TOTAL_MATCHES = 10;
-
 
 class App extends React.Component {
     constructor(props) {
@@ -15,7 +22,11 @@ class App extends React.Component {
             cardA: null,
             cardB: null,
             matches: 0,
-            tries: 0
+            tries: 0,
+            showChangePlayer: false,
+            showCurrenPlayer: true,
+            playersPositions: [],
+            newPlayer: null
         }
         this.handdleFlipCardValue = this.handdleFlipCardValue.bind(this);
         this.isEqualTo = this.isEqualTo.bind(this);
@@ -24,7 +35,75 @@ class App extends React.Component {
         this.saveMatchCards = this.saveMatchCards.bind(this); 
         this.restartGame = this.restartGame.bind(this);
         this.createShuffleValues = this.createShuffleValues.bind(this);
+        this.handdleChangePlayer = this.handdleChangePlayer.bind(this);
+        this.getPlayersPositions = this.getPlayersPositions.bind(this);
+        this.handleNewPlayer = this.handleNewPlayer.bind(this);
     }
+
+    componentDidUpdate() {
+        if( this.state.matches < 11 ) {
+            if( this.state.cardA && this.state.cardB ) {
+                let cardA = this.state.cardA;
+                let cardB = this.state.cardB;
+                setTimeout( () => {
+                    if( this.isEqualTo( this.state.arrayValues[cardA].value, this.state.arrayValues[cardB].value )){
+                            this.saveMatchCards( this.state.cardA, this.state.cardB );
+                    } else {
+                        this.restartValuesStatus( this.state.cardA, this.state.cardB );
+                    }
+                }, 1000);
+            } 
+        } if (this.state.matches === TOTAL_MATCHES) {
+            let totalTries = (this.state.tries)-1; 
+            alert("Ganaste en "+totalTries+" intentos!");
+        }
+    }
+
+    componentDidMount() {
+        this.getPlayersPositions();
+    }
+
+    render(){
+        return (
+            <div className="memory-game">
+                <Header 
+                handdleChangePlayer={ this.handdleChangePlayer }
+                restart={this.restartGame}
+                />
+                <div className="board">
+                    <div className="board__column--left">
+                        {this.state.arrayValues.map(( e, index ) => (
+                            <FlipCard 
+                                toggleCard={this.toggleCard}
+                                arrayValues={this.state.arrayValues}
+                                isFlipped={ e.status}
+                                index={index}
+                                value={e.value}
+                                key={index}
+                            /> 
+                        ))}
+                    </div>
+                    <div className="board__column--right">
+                    { this.state.showChangePlayer ? <ChangePlayerTable handleNewPlayer={this.handleNewPlayer}/> : null }
+                    { this.state.showCurrenPlayer ? <CurrentPlayerTable attempts={this.state.tries} currentPlayer={this.state.newPlayer}/> : null }
+                        <PositionTable 
+                        positions={this.state.playersPositions}
+                        />
+                    </div>
+                </div>
+            <Footer/>
+            </div>
+        )
+    }
+
+    //function that fetch to API to get players positions
+    getPlayersPositions() {
+        playersPositions.get( '/positions' )
+            .then( response => this.setState({
+                playersPositions: response.data.positions
+            }) );
+    }
+    
 
     //function that shuffle values of an array of strings
     createShuffleValues() {
@@ -74,9 +153,8 @@ class App extends React.Component {
 
     //function that validate if two values al equal
     isEqualTo( valueA, valueB) {
-        if( valueA === valueB) {
-            return true;
-        }
+       
+        return valueA === valueB;
     }
 
     //function that reset all values from state
@@ -144,43 +222,19 @@ class App extends React.Component {
         }, 1000)
     }
 
-    componentDidUpdate() {
-        if( this.state.matches < 11 ) {
-            if( this.state.cardA && this.state.cardB ) {
-                let cardA = this.state.cardA;
-                let cardB = this.state.cardB;
-                setTimeout( () => {
-                    if( this.isEqualTo( this.state.arrayValues[cardA].value, this.state.arrayValues[cardB].value )){
-                            this.saveMatchCards( this.state.cardA, this.state.cardB );
-                    } else {
-                        this.restartValuesStatus( this.state.cardA, this.state.cardB );
-                    }
-                }, 1000);
-            } 
-        } if (this.state.matches === TOTAL_MATCHES) {
-            let totalTries = (this.state.tries)-1; 
-            alert("Ganaste en "+totalTries+" intentos!");
-        }
+    handdleChangePlayer() {
+        this.setState( prevState => ({
+            showChangePlayer: !prevState.showChangePlayer,
+            showCurrenPlayer: !prevState.showCurrenPlayer
+        }))
     }
 
-    render(){
-        return (
-            <div className="memorygame-container">
-                <header className="memorygame-header">
-                    <span className="game-title">React-Memoria</span>
-                    <span className="game-try">Intentos:<span className="try-value">{this.state.tries}</span></span>
-                </header>
-                <div className="board-container">
-                    <button type="button" className="btn-restart" onClick={this.restartGame}>Reiniciar</button>
-                    <div className="flipcard-board">
-                        <FlipCard 
-                            toggleCard={this.toggleCard}
-                            arrayValues={this.state.arrayValues}
-                        />
-                    </div>
-                </div>
-            </div>
-        )
+    handleNewPlayer( value ) {
+        this.setState( prevState => ({
+            newPlayer: value,
+            showChangePlayer: !prevState.showChangePlayer,
+            showCurrenPlayer: !prevState.showCurrenPlayer
+        }))
     }
 };
 

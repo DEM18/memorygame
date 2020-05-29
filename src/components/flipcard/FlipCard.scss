@@ -1,0 +1,26 @@
+
+.cards {
+    margin: 0 auto;
+    &__card--front {
+        background-color:#E69138;
+        height: 150px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }
+
+    &__card--back {
+        background-color: rgb(62, 216, 230);
+        height: 150px;
+        width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }
+}
+
+.react-card-flip {
+    margin-right: 23px;
+    margin-bottom: 23px;
+}

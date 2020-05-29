@@ -1,0 +1,44 @@
+$backgroundColor: #000000;
+$font-color: #ffffff;
+$table-border-color: #ffffff;
+$font-family: sans-serif;
+
+.header {
+    align-items: center;
+    background-color: $backgroundColor;
+    border-bottom: 2px solid $table-border-color;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    padding:  70px 20px 70px 40px ;
+    
+    &__logo {
+        align-items: center;
+        background-color: $font-color;
+        color: black;
+        display: flex;
+        font-family: $font-family;
+        font-size: 45px;
+        font-weight: bold;
+        height: 80px;
+        justify-content: center;
+        width: 230px;
+    }
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+    
+    &__option {
+        display: block;
+        margin-right: 45px;
+    }
+    
+    &__button {
+        background-color: black;
+        color: $font-color;
+        font-family: $font-family;
+        font-size: 30px;
+    }
+}

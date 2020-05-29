@@ -1,0 +1,90 @@
+@import './components/header/Header.scss';
+@import './components/currentplayertable/CurrenPlayerTable.scss';
+@import './components/positiontable/PositionTable.scss';
+
+$backgroundColor: #000000;
+$font-color: #ffffff;
+$table-border-color: #ffffff;
+$btn-accept-background-color: #9b9595;
+$font-family: sans-serif;
+$font-style-italic: italic;
+
+
+* {
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.memorygame-container {
+    padding: 4px;
+}
+
+.board {
+    display: flex;
+    background-color: $backgroundColor;
+
+    &__column--left {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 70px 50px 0 50px;
+    }
+
+    &__column--right {
+        width: 60%;
+        padding: 70px 50px 0 50px;
+    }
+}
+
+.table {
+    border: 2px solid $table-border-color;
+    color: $font-color;
+    margin: 0 auto;
+    width: 500px;
+
+    &__title {
+        align-items: center;
+        display: flex;
+        font-family: $font-family;
+        font-size: 25px;
+        justify-content: center;
+        padding-top: 25px;
+        text-align: center;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: column;
+        font-family: $font-family;
+        font-size: 25px;
+        padding: 0px 30px 0 30px;
+    }
+
+    &__input {
+        height: 25px;
+        margin-right: 20px;
+        width: 270px;
+    }
+
+    &__button {
+        background-color: $btn-accept-background-color;
+        border-radius: 10%;
+        height: 25px;
+        width: 62px;
+    }
+
+}
+
+.footer {
+    align-items: center;
+    background-color: $backgroundColor;
+    border-top: 2px solid $table-border-color;
+    color: $font-color;
+    display: flex;
+    font-family: $font-family;
+    font-size: 17px;
+    font-style: $font-style-italic;
+    height: 70px;
+    justify-content: center;
+}
+

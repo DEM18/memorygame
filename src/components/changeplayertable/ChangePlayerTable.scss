@@ -1,0 +1,50 @@
+$backgroundColor: #000000;
+$font-color: #ffffff;
+$table-border-color: #ffffff;
+$btn-accept-background-color: #9b9595;
+$font-family: sans-serif;
+$font-style-italic: italic;
+
+
+.table-change-player {
+    display: flex;
+    height: 150px;
+    margin-bottom: 145px;
+}
+
+.form {
+    &__name-label {
+        display: block;
+        font-family: $font-family;
+        margin-bottom: 10px;
+    }
+
+    &__name-input {
+        height: 30px;
+        width: 280px;
+        margin-right: 30px;
+        font-size: 25px;
+        padding-left: 5px;
+    }
+
+    &__accept-button {
+        height: 30px;
+        width: 70px;
+        border-radius: 10%;
+    }
+}
+
+.table-change-player {
+    padding: 30px;
+    margin-bottom: 72px;
+}
+
+.table__title--change-player {
+    justify-content: start;
+}
+
+.table__row--change-player {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+}
